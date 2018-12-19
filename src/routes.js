@@ -13,10 +13,18 @@ routes.post('/sessions', controllers.SessionController.store)
 // aplica o middleware para as rotas a partir desse ponto
 routes.use(authMiddleware)
 
+/**
+ * Ads
+ */
 routes.get('/ads', controllers.AdController.index)
 routes.get('/ads/:id', controllers.AdController.show)
 routes.post('/ads', controllers.AdController.store)
 routes.put('/ads/:id', controllers.AdController.update)
 routes.delete('/ads/:id', controllers.AdController.destroy)
+
+/**
+ * Purchases
+ */
+routes.post('/purchases', controllers.PurchaseController.store)
 
 module.exports = routes
