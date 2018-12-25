@@ -3,7 +3,6 @@ const authConfig = require('../../config/auth')
 const { promisify } = require('util')
 
 module.exports = async (req, res, next) => {
-  console.log(req)
   const authHeader = req.headers.authorization
 
   if (!authHeader) {

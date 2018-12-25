@@ -13,7 +13,7 @@ class App {
   }
 
   database () {
-    /**
+    /*
      * se estiver usando o Atlas, a URI de conexão seria algo como
      * mongodb://usuario:senha@localhost:27017/databasename
      *
@@ -21,7 +21,6 @@ class App {
      * Para ficar mais organizado, será criado um arquivo:
      * config/database.js
      */
-    console.log('databaseURI: ', databaseConfig.uri)
 
     mongoose.connect(
       databaseConfig.uri,
