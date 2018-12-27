@@ -5,6 +5,9 @@ const Queue = require('../services/Queue')
 
 class PurchaseController {
   async store (req, res) {
+    // esse funciona - envia mensagem para o sentry.io
+    // throw new Error('erro provocado...')
+
     /**
      * ad - id do anuncio da intenção de compra
      * content - mensagem que será enviada ao autor do anuncio por email

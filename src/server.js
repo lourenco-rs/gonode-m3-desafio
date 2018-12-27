@@ -1,18 +1,25 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const Youch = require('youch')
-const databaseConfig = require('./config/database')
+const Sentry = require('@sentry/node')
 const validate = require('express-validation')
+const databaseConfig = require('./config/database')
+const sentryConfig = require('./config/sentry')
 
 class App {
   constructor () {
     this.express = express()
     this.isDev = process.env.NODE_ENV !== 'production'
 
+    this.sentry()
     this.database()
     this.middlewares()
     this.routes()
     this.exception()
+  }
+
+  sentry () {
+    Sentry.init(sentryConfig)
   }
 
   database () {
@@ -37,10 +44,11 @@ class App {
 
   middlewares () {
     /**
-     * /da ao express a possibilidade de ler corpos de requisições
+     * da ao express a possibilidade de ler corpos de requisições
      * e passar para o req.body dentro de cadas midleware
      */
     this.express.use(express.json())
+    this.express.use(Sentry.Handlers.requestHandler())
   }
 
   routes () {
@@ -48,6 +56,10 @@ class App {
   }
 
   exception () {
+    // if (process.env.NODE_ENV === 'production') {
+    this.express.use(Sentry.Handlers.errorHandler())
+    // }
+
     this.express.use(async (err, req, res, next) => {
       // o propósito dessa verificação é formatar os erros de
       // validação no formato json

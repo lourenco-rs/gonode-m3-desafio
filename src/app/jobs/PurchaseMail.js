@@ -12,7 +12,9 @@ class PurchaseMail {
   async handle (job, done) {
     const { ad, user, content } = job.data
 
-    await Mail.sendMail({
+    // o nome do método abaixo errado deveria provocar uma exception
+    // mas não envia nada para o sentry.io
+    await Mail.kkk_sendMail({
       from: '"Rodrigo Lourenço" <lourenco.rs@gmail.com>',
       to: ad.author.email,
       subject: `Solicitação de compra: ${ad.title}`,
